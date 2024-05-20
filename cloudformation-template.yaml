@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to deploy an application
+
+Parameters:
+  ContainerImage:
+    Type: String
+    Description: URI of the Docker image
+
+Resources:
+  MyTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: architecture-task
+      ContainerDefinitions:
+        - Name: architecture-container
+          Image: !Ref ContainerImage
+          Memory: 512
+          Cpu: 256
+          Essential: true
+          PortMappings:
+            - ContainerPort: 80
+              HostPort: 80
